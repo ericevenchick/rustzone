@@ -1,0 +1,14 @@
+[package]
+name = "rustzone_ta"
+version = "0.1.0"
+authors = ["Eric Evenchick <eric@evenchick.com>"]
+
+[dependencies]
+
+[build-dependencies]
+bindgen = "0.26.3"
+
+
+[lib]
+name = "ta"
+crate-type = ["dylib"]
