@@ -8,7 +8,9 @@ authors = ["Eric Evenchick <eric@evenchick.com>"]
 [build-dependencies]
 bindgen = "0.26.3"
 
-
 [lib]
 name = "ta"
-crate-type = ["dylib"]
+crate-type = ["staticlib"]
+
+[profile.release]
+panic = "abort"

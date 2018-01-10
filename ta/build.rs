@@ -6,10 +6,11 @@ use std::path::PathBuf;
 const OPTEE_PATH: &'static str = "/home/eric/devel/optee/";
 
 fn main() {
-    // Tell cargo to tell rustc to link the libutee
-    // shared library.
+    // Tell cargo to tell rustc to link the utee library and dependencies 
     println!("cargo:rustc-link-search={}optee_os/out/arm/export-ta_arm64/lib/", OPTEE_PATH);
     println!("cargo:rustc-link-lib=utee");
+    println!("cargo:rustc-link-lib=mpa");
+    println!("cargo:rustc-link-lib=util");
 
     let libutee_include = format!("-I{}{}", OPTEE_PATH, "/optee_os/lib/libutee/include/");
     let libutils_include = format!("-I{}{}", OPTEE_PATH, "optee_os/lib/libutils/ext/include/");
@@ -24,6 +25,11 @@ fn main() {
         // Add args for paths to headers
         .clang_arg(libutee_include)
         .clang_arg(libutils_include)
+        // use core, no std
+        .use_core()
+        .ctypes_prefix("c_types")
+        // ignore functions we'll define
+        .hide_type("TA_.*")
         // Finish the builder and generate the bindings.
         .generate()
         // Unwrap the Result and panic on failure.
