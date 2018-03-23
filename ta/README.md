@@ -1,5 +1,7 @@
 # RustZone TA
 
-## Building
+## Build
 
-`cargo build --target aarch64-unknown-linux-gnu`
+Install OP-TEE, build OP-TEE toolchains, modify generate-ta.sh to point to OP-TEE install. 
+
+Finally: `./generate-ta.sh`
