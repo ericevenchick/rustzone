@@ -52,6 +52,6 @@ pub extern "C" fn TA_CloseSessionEntryPoint(sessionContext: *mut c_types::c_void
 #[no_mangle]
 pub extern "C" fn TA_InvokeCommandEntryPoint(sessionContext: *mut c_types::c_void,
                                              commandID: u32, paramTypes: u32,
-                                             mut params: [optee::TEE_Param; 4]) -> optee::TEE_Result {
+                                             mut params: &mut [optee::TEE_Param; 4]) -> optee::TEE_Result {
     return ta::InvokeCommandEntryPoint(sessionContext, commandID, paramTypes, &mut params);
 }

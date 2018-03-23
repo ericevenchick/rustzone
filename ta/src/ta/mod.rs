@@ -3,32 +3,43 @@ use types::c_types as c_types;
 use optee;
 
 pub fn CreateEntryPoint() -> optee::TEE_Result {
-    log_debug!(file!(), "has been called");
-
+    ta_print!("Rust TA CreateEntryPoint");
     return optee::TEE_SUCCESS;
 }
 
 pub fn DestroyEntryPoint() {
-    log_debug!(file!(), "has been destroyed");
-
+    ta_print!("Rust TA DestroyEntryPoint");
 }
 
 pub fn OpenSessionEntryPoint(_paramTypes: u32, _params: *mut optee::TEE_Param,
                                            _sessionContext: *mut *mut c_types::c_void)
      -> optee::TEE_Result {
-    log_debug!(file!(), "has been opened");
+    ta_print!("Rust TA OpenSessionEntryPoint");
     return optee::TEE_SUCCESS;
 }
 
 pub fn CloseSessionEntryPoint(_sessionContext: *mut c_types::c_void) {
-    log_debug!(file!(), "has been closed");
+    ta_print!("Rust TA CloseSessionEntryPoint");
 }
 
 pub fn InvokeCommandEntryPoint(_sessionContext: *mut c_types::c_void,
-                                             _commandID: u32, _paramTypes: u32,
+                                             commandID: u32, _paramTypes: u32,
                                              params: &mut [optee::TEE_Param; 4]) -> optee::TEE_Result {
-    log_debug!(file!(), "has been invoked");
+    ta_print!("Rust TA InvokeCommandEntryPoint");
 
-    unsafe {params[0].value.as_mut().a = 1234} ;
+    match commandID {
+        0 => {
+            unsafe {params[0].value.as_mut().a += 1};
+            ta_print!("Incremented Value"); 
+        },
+        1 => {
+            unsafe {params[0].value.as_mut().a -= 1};
+            ta_print!("Decremented Value"); 
+        },
+        _ => {
+            return optee::TEE_ERROR_BAD_PARAMETERS;
+        }
+    }
+
     return optee::TEE_SUCCESS;
 }

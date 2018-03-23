@@ -1,5 +1,5 @@
-OUTPUT_FORMAT("elf64-littleaarch64")
-OUTPUT_ARCH(aarch64)
+OUTPUT_FORMAT("elf32-littlearm")
+OUTPUT_ARCH(arm)
 PHDRS {
  exec PT_LOAD FLAGS (5);
  rodata PT_LOAD FLAGS (4);
@@ -16,7 +16,7 @@ SECTIONS {
   *(.glue_7t)
   *(.gnu.linkonce.t.*)
   *(.vfp11_veneer)
-  PROVIDE(_mcount = __utee_mcount);
+  PROVIDE(__gnu_mcount_nc = __utee_mcount);
   __text_end = .;
  }
  .eh_frame : { *(.eh_frame) } :rodata
@@ -60,8 +60,8 @@ SECTIONS {
   *(.bss .bss.* .gnu.linkonce.b.* COMMON)
   . = ALIGN(8);
   __gprof_buf_start = .;
-  . += DEFINED(_mcount) ?
-   ((__text_end - __text_start) * 177) / 100 : 0;
+  . += DEFINED(__gnu_mcount_nc) ?
+   ((__text_end - __text_start) * 136) / 100 : 0;
   __gprof_buf_end = .;
  }
  /DISCARD/ : { *(.interp) }
