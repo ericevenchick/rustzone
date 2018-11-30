@@ -1,9 +1,11 @@
-#![feature(lang_items, core)]
+#![feature(lang_items)]
 #![no_std]
 
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
 #![allow(non_snake_case)]
+
+use core::panic::PanicInfo;
 
 mod types;
 use types::c_types as c_types;
@@ -15,8 +17,10 @@ mod ta;
 // define functions required for no_std
 #[lang = "eh_personality"]
 extern fn eh_personality() {}
-#[lang = "panic_fmt"]
-extern fn panic_fmt() {}
+#[panic_handler]
+extern fn panic_fmt(_info: &PanicInfo) -> ! {
+    loop{}
+}
 
 // define ARM floating point functions to prevent linker error
 #[no_mangle]

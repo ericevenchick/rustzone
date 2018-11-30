@@ -30,11 +30,11 @@ pub fn InvokeCommandEntryPoint(_sessionContext: *mut c_types::c_void,
     match commandID {
         0 => {
             unsafe {params[0].value.as_mut().a += 1};
-            ta_print!("Incremented Value"); 
+            ta_print!("Incremented Value from Rust!");
         },
         1 => {
             unsafe {params[0].value.as_mut().a -= 1};
-            ta_print!("Decremented Value"); 
+            ta_print!("Decremented Value from Rust!");
         },
         _ => {
             return optee::TEE_ERROR_BAD_PARAMETERS;
