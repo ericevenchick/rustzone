@@ -15,7 +15,6 @@ fn main() {
     let libutee_include = format!("-I{}{}", OPTEE_PATH, "optee_os/lib/libutee/include/");
     let libutils_include = format!("-I{}{}", OPTEE_PATH, "optee_os/lib/libutils/ext/include/");
     let linux_include = format!("-I{}{}", OPTEE_PATH, "linux/include/");
-    let uapi_include = format!("-I{}{}", OPTEE_PATH, "linux/include/uapi/linux/");
     let compiler_include = format!("-I{}{}", OPTEE_PATH, "toolchains/aarch32/arm-linux-gnueabihf/libc/usr/include/");
     let stdlib_include = format!("-I{}{}", OPTEE_PATH, "toolchains/aarch32/lib/gcc/arm-linux-gnueabihf/8.2.1/include/");
 
@@ -33,7 +32,6 @@ fn main() {
         .clang_arg(libutee_include)
         .clang_arg(libutils_include)
         .clang_arg(linux_include)
-        //.clang_arg(uapi_include)
         .clang_arg(compiler_include)
         .clang_arg(stdlib_include)
         // use core, no std

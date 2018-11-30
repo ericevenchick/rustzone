@@ -6,7 +6,7 @@ authors = ["Eric Evenchick <eric@evenchick.com>"]
 [dependencies]
 
 [build-dependencies]
-bindgen = "0.26.3"
+bindgen = "0.42.2"
 
 [lib]
 name = "ta"
